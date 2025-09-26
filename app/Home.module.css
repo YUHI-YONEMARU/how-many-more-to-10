@@ -1,0 +1,139 @@
+/* Home.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* 背景色 */
+}
+
+.header {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.gameArea {
+  /* 画面上半分を占めるようなレイアウト */
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 画面中央に配置 */
+  width: 100%;
+  max-width: 600px;
+  min-height: 350px; /* ある程度の高さを確保 */
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.questionNumber {
+  font-size: 10rem; /* 大きな数字 */
+  font-weight: bold;
+  color: #0070f3;
+  margin-bottom: 20px;
+  line-height: 1; /* 行の高さを詰める */
+}
+
+/* 丸のコンテナ */
+.circleContainer {
+  display: flex;
+  justify-content: flex-start; /* 左詰めで並べる */
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* 10個の丸が収まる幅 */
+  height: 50px; /* 丸の高さ */
+  border: 1px dashed #ccc; /* 10個のスペースを表現 */
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* 丸の基本スタイル */
+.circle {
+  width: 40px; /* 丸のサイズ */
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 2px; /* わずかな隙間 */
+  flex-shrink: 0; /* 縮まないようにする */
+}
+
+/* 問題の数字に対応する丸の色 */
+.initialCircle {
+  background-color: #ff9900; /* オレンジ */
+}
+
+/* 正解時に追加される丸の色 */
+.addedCircle {
+  background-color: #00b300; /* 緑 */
+}
+
+.feedback {
+  margin-top: 20px;
+}
+
+.correctText {
+  font-size: 3rem;
+  color: #00b300;
+  font-weight: bold;
+}
+
+/* 回答ボタンセクション */
+.answerSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3x3のグリッド */
+  gap: 15px;
+  width: 100%;
+  max-width: 300px;
+  padding-bottom: 20px;
+}
+
+.answerButton {
+  padding: 15px;
+  font-size: 2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #333;
+}
+
+.answerButton:hover:not(:disabled) {
+  background-color: #e6e6e6;
+}
+
+.answerButton:disabled {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+  position: relative;
+}
+
+/* 次のボタン/リセットボタン */
+.nextButton {
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+  margin-top: 20px;
+}
+
+.nextButton:hover {
+  background-color: #005bb5;
+}
+
+.gameOverText {
+  font-size: 3rem;
+  color: #e65c00;
+  margin-bottom: 30px;
+}
