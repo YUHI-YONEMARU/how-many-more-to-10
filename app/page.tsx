@@ -98,8 +98,8 @@ export default function Home() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
+                        key={`a-${index}`} className={`${styles.circle} ${styles.addedCircle}`}
                     > 
-                    <div key={`a-${index}`} className={`${styles.circle} ${styles.addedCircle}`}></div>
                     </motion.div>
                   ))}
                 </div>
