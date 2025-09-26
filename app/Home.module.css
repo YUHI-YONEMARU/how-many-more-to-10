@@ -25,7 +25,6 @@
   width: 100%;
   max-width: 600px;
   min-height: 350px; /* ある程度の高さを確保 */
-  margin-bottom: 20px;
   padding: 20px;
 }
 
@@ -69,14 +68,11 @@
   background-color: #00b300; /* 緑 */
 }
 
-.feedback {
-  margin-top: 20px;
-}
-
 .correctText {
   font-size: 3rem;
   color: #00b300;
   font-weight: bold;
+  margin-bottom: 80px;
 }
 
 /* 回答ボタンセクション */
@@ -87,8 +83,24 @@
   width: 100%;
   max-width: 300px;
   padding-bottom: 20px;
+  min-height: 300px; 
 }
 
+.nextButtonContainer {
+  width: 100%;
+  max-width: 600px; /* 必要に応じて調整 */
+  min-height: 300px; /* 適切な高さを設定して固定 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.nextButtonContainer > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .answerButton {
   padding: 15px;
   font-size: 2rem;
@@ -125,7 +137,7 @@
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s;
-  margin-top: 20px;
+  margin-top: 0; 
 }
 
 .nextButton:hover {
@@ -137,3 +149,4 @@
   color: #e65c00;
   margin-bottom: 30px;
 }
+

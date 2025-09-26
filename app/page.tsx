@@ -99,17 +99,17 @@ export default function Home() {
               </>
             )}
 
-            {isCorrect && (
-              <div className={styles.feedback}>
-                <p className={styles.correctText}>せいかい！</p>
-              </div>
-            )}
           </div>
 
           {isCorrect ? (
-             <button className={styles.nextButton} onClick={handleNextQuestion}>
-              つぎのもんだいにすすむ
-            </button>
+            <div className={styles.nextButtonContainer}> 
+              <div> 
+                <p className={styles.correctText}>せいかい！</p>
+                <button className={styles.nextButton} onClick={handleNextQuestion}>
+                  つぎのもんだいにすすむ
+                </button>
+              </div>
+            </div>
           ) : (
             <div className={styles.answerSection}>
               {Array.from({ length: 9 }, (_, i) => i + 1).map((num) => {
