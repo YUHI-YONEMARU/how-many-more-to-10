@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './Home.module.css'; // CSSモジュールをインポート
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [questionNumber, setQuestionNumber] = useState<number | null>(null);
@@ -75,9 +76,9 @@ export default function Home() {
 
       {isGameOver ? (
         <div className={styles.gameArea}>
-          <p className={styles.gameOverText}>おつかれさまでした！</p>
+          <p className={styles.gameOverText}>もんだいはここまで。<br />おつかれさまでした！</p>
           <button className={styles.nextButton} onClick={handleReset}>
-            さいしょから
+            さいしょからにもどす
           </button>
         </div>
       ) : (
@@ -93,7 +94,13 @@ export default function Home() {
                   ))}
                   {/* 正解した場合、残りの丸を追加表示 */}
                   {isCorrect && Array.from({ length: 10 - questionNumber }).map((_, index) => (
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                    > 
                     <div key={`a-${index}`} className={`${styles.circle} ${styles.addedCircle}`}></div>
+                    </motion.div>
                   ))}
                 </div>
               </>
@@ -103,12 +110,16 @@ export default function Home() {
 
           {isCorrect ? (
             <div className={styles.nextButtonContainer}> 
-              <div> 
+              <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+              > 
                 <p className={styles.correctText}>せいかい！</p>
                 <button className={styles.nextButton} onClick={handleNextQuestion}>
                   つぎのもんだいにすすむ
                 </button>
-              </div>
+              </motion.div>
             </div>
           ) : (
             <div className={styles.answerSection}>

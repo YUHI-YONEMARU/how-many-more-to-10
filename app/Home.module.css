@@ -66,7 +66,8 @@
 
 /* 正解時に追加される丸の色 */
 .addedCircle {
-  background-color: #5EC06C; /* 緑 */
+  background-color: #ffffff; /* 緑 */
+  border: 2px dashed #ccc;
 }
 
 .correctText {
@@ -146,8 +147,8 @@
 }
 
 .gameOverText {
-  font-size: 3rem;
+  font-size: 2rem;
   color: #e65c00;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
