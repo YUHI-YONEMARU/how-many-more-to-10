@@ -82,7 +82,7 @@
   grid-template-columns: repeat(3, 1fr); /* 3x3のグリッド */
   gap: 15px;
   width: 100%;
-  max-width: 300px;
+  max-width: 600px;
   padding-bottom: 20px;
   min-height: 300px; 
 }
