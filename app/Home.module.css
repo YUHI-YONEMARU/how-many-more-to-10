@@ -10,7 +10,8 @@
 }
 
 .header {
-  font-size: 2.5rem;
+  font-size: 3.0rem;
+  font-weight: bold;
   color: #333;
   margin-bottom: 30px;
 }
@@ -31,7 +32,7 @@
 .questionNumber {
   font-size: 10rem; /* 大きな数字 */
   font-weight: bold;
-  color: #0070f3;
+  color: #5EC06C;
   margin-bottom: 20px;
   line-height: 1; /* 行の高さを詰める */
 }
@@ -39,13 +40,13 @@
 /* 丸のコンテナ */
 .circleContainer {
   display: flex;
-  justify-content: flex-start; /* 左詰めで並べる */
+  justify-content: flex-start; 
   align-items: center;
   width: 100%;
-  max-width: 400px; /* 10個の丸が収まる幅 */
-  height: 50px; /* 丸の高さ */
-  border: 1px dashed #ccc; /* 10個のスペースを表現 */
-  padding: 5px;
+  max-width: 430px;
+  height: 50px;
+  border: 3px dashed #ccc;
+  padding: 3;
   box-sizing: border-box;
 }
 
@@ -60,19 +61,19 @@
 
 /* 問題の数字に対応する丸の色 */
 .initialCircle {
-  background-color: #ff9900; /* オレンジ */
+  background-color: #5EC06C; /* オレンジ */
 }
 
 /* 正解時に追加される丸の色 */
 .addedCircle {
-  background-color: #00b300; /* 緑 */
+  background-color: #5EC06C; /* 緑 */
 }
 
 .correctText {
-  font-size: 3rem;
-  color: #00b300;
+  font-size: 3.5rem;
+  color: #5EC06C;
   font-weight: bold;
-  margin-bottom: 80px;
+  margin-bottom: 70px;
 }
 
 /* 回答ボタンセクション */
