@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './Home.module.css'; // CSSモジュールをインポート
+import Head from 'next/head';
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -72,6 +73,29 @@ export default function Home() {
 
   return (
     <main className={styles.container}>
+            <Head>
+                <title>10まであといくつ？</title>
+                <meta name="description" content="「10まであといくつ？」は、足すと10になる数の組み合わせをゲーム形式で学べる子ども向けのアプリです。" />
+                <meta name="keywords" content="とけいのよみかた, 子ども, 時計, 学習, 時間, アプリ" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="theme-color" content="#725bf4" />
+                {/* Favicon and Icons */}
+                <link rel="icon" href="/favicon.ico" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="192x192" href="/icon.png" />
+                {/* Open Graph */}
+                <meta property="og:title" content="10まであといくつ？" />
+                <meta property="og:description" content="足すと10になる数の組み合わせをゲーム形式で学べる子ども向けのアプリです。" />
+                <meta property="og:image" content="/og-image.png" />
+                <meta property="og:url" content="https://how-many-more-to-10.vercel.app" />
+                <meta property="og:type" content="website" />
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="10まであといくつ？" />
+                <meta name="twitter:description" content="足すと10になる数の組み合わせをゲーム形式で学べる子ども向けのアプリです。" />
+                <meta name="twitter:image" content="/og-image.png" />
+            </Head>
+
       <h1 className={styles.header}>10まであといくつ？</h1>
 
       {isGameOver ? (
