@@ -91,6 +91,10 @@ export default function Home() {
         <meta name="twitter:image" content="/og-image.png" />
       </Head>
 
+      {mode === 'timeattack' && !isGameOver && (
+        <span className={styles.timeAttackBadge}>⏱️</span>
+      )}
+
       <h1 className={styles.header}>10まであといくつ？</h1>
 
       {mode === null ? (
@@ -100,7 +104,7 @@ export default function Home() {
             ふつう
           </button>
           <button className={`${styles.modeButton} ${styles.modeButtonTimeAttack}`} onClick={() => handleSelectMode('timeattack')}>
-            タイムアタック
+            タイム<br />アタック
           </button>
         </div>
       ) : isGameOver ? (
