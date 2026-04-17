@@ -97,6 +97,12 @@ export default function Home() {
 
       <h1 className={styles.header}>10まであといくつ？</h1>
 
+      {mode !== null && !isGameOver && (
+        <button className={styles.backButton} onClick={handleReset} aria-label="もどる">
+          ←
+        </button>
+      )}
+
       {mode === null ? (
         <div className={styles.modeSelect}>
           <p className={styles.modeSelectLabel}>モードをえらんでね</p>
