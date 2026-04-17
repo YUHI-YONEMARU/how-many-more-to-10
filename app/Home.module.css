@@ -149,6 +149,55 @@
 .gameOverText {
   font-size: 2rem;
   color: #e65c00;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
+}
+
+.elapsedTime {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #725bf4;
+  margin-bottom: 40px;
+}
+
+.modeSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.modeSelectLabel {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.modeButton {
+  padding: 20px 50px;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #5EC06C;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+  width: 280px;
+}
+
+.modeButton:hover {
+  background-color: #4aa85a;
+}
+
+.modeButtonTimeAttack {
+  background-color: #725bf4;
+}
+
+.modeButtonTimeAttack:hover {
+  background-color: #5a46d6;
 }
 
