@@ -1,14 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Home.module.css';
 import Head from 'next/head';
 import { motion } from "framer-motion";
 
 type Mode = 'normal' | 'timeattack';
+type TimeAttackRecord = {
+  completedAt: number;
+  elapsedTime: number;
+};
+
+const RECORDS_STORAGE_KEY = 'how-many-more-to-10-records';
 
 export default function Home() {
   const [mode, setMode] = useState<Mode | null>(null);
+  const [showRecords, setShowRecords] = useState(false);
   const [questionNumber, setQuestionNumber] = useState<number | null>(null);
   const [usedNumbers, setUsedNumbers] = useState<number[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
@@ -16,6 +23,37 @@ export default function Home() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number | null>(null);
+  const [liveElapsedTime, setLiveElapsedTime] = useState(0);
+  const [records, setRecords] = useState<TimeAttackRecord[]>([]);
+
+  useEffect(() => {
+    try {
+      const storedRecords = localStorage.getItem(RECORDS_STORAGE_KEY);
+      if (storedRecords) {
+        const parsedRecords: unknown = JSON.parse(storedRecords);
+        if (Array.isArray(parsedRecords)) {
+          setRecords(parsedRecords.filter((record): record is TimeAttackRecord =>
+            typeof record?.completedAt === 'number' &&
+            Number.isFinite(record.completedAt) &&
+            typeof record?.elapsedTime === 'number' &&
+            Number.isFinite(record.elapsedTime) &&
+            record.elapsedTime >= 0
+          ));
+        }
+      }
+    } catch {
+      setRecords([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (mode !== 'timeattack' || isGameOver || startTime === null) return;
+
+    const updateElapsedTime = () => setLiveElapsedTime(Date.now() - startTime);
+    updateElapsedTime();
+    const intervalId = window.setInterval(updateElapsedTime, 100);
+    return () => window.clearInterval(intervalId);
+  }, [mode, isGameOver, startTime]);
 
   const pickNewQuestion = (used: number[]): number => {
     const available = [1,2,3,4,5,6,7,8,9].filter(n => !used.includes(n));
@@ -31,7 +69,9 @@ export default function Home() {
     setWrongAnswers([]);
     setIsGameOver(false);
     setElapsedTime(null);
-    setStartTime(selected === 'timeattack' ? Date.now() : null);
+    const startedAt = selected === 'timeattack' ? Date.now() : null;
+    setStartTime(startedAt);
+    setLiveElapsedTime(0);
   };
 
   const handleAnswerClick = (answer: number) => {
@@ -46,7 +86,17 @@ export default function Home() {
   const handleNextQuestion = () => {
     if (usedNumbers.length === 9) {
       if (mode === 'timeattack' && startTime !== null) {
-        setElapsedTime(Date.now() - startTime);
+        const finishedAt = Date.now();
+        const finalElapsedTime = finishedAt - startTime;
+        const newRecord = { completedAt: finishedAt, elapsedTime: finalElapsedTime };
+        const updatedRecords = [newRecord, ...records];
+        setElapsedTime(finalElapsedTime);
+        setRecords(updatedRecords);
+        try {
+          localStorage.setItem(RECORDS_STORAGE_KEY, JSON.stringify(updatedRecords));
+        } catch {
+          // Keep the result visible in this session if browser storage is unavailable.
+        }
       }
       setIsGameOver(true);
     } else {
@@ -60,6 +110,7 @@ export default function Home() {
 
   const handleReset = () => {
     setMode(null);
+    setShowRecords(false);
     setQuestionNumber(null);
     setUsedNumbers([]);
     setIsCorrect(false);
@@ -67,6 +118,7 @@ export default function Home() {
     setIsGameOver(false);
     setStartTime(null);
     setElapsedTime(null);
+    setLiveElapsedTime(0);
   };
 
   return (
@@ -92,18 +144,36 @@ export default function Home() {
       </Head>
 
       {mode === 'timeattack' && !isGameOver && (
-        <span className={styles.timeAttackBadge}>⏱️</span>
+        <span className={styles.timeAttackBadge}>⏱️ {(liveElapsedTime / 1000).toFixed(1)}びょう</span>
       )}
 
-      <h1 className={styles.header}>10まであといくつ？</h1>
+      <h1 className={`${styles.header} ${(mode !== null || showRecords) ? styles.headerWithBack : ''}`}>
+        10まであといくつ？
+      </h1>
 
-      {mode !== null && !isGameOver && (
+      {((mode !== null && !isGameOver) || showRecords) && (
         <button className={styles.backButton} onClick={handleReset} aria-label="もどる">
           ←
         </button>
       )}
 
-      {mode === null ? (
+      {showRecords ? (
+        <div className={styles.recordsArea}>
+          <h2 className={styles.recordsTitle}>タイムアタックのきろく</h2>
+          {records.length === 0 ? (
+            <p className={styles.emptyRecords}>まだきろくがありません</p>
+          ) : (
+            <ol className={styles.recordsList}>
+              {records.map((record, index) => (
+                <li className={styles.recordItem} key={`${record.completedAt}-${index}`}>
+                  <span>{new Date(record.completedAt).toLocaleString('ja-JP')}</span>
+                  <strong>{(record.elapsedTime / 1000).toFixed(1)}びょう</strong>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      ) : mode === null ? (
         <div className={styles.modeSelect}>
           <p className={styles.modeSelectLabel}>モードをえらんでね</p>
           <button className={styles.modeButton} onClick={() => handleSelectMode('normal')}>
@@ -111,6 +181,9 @@ export default function Home() {
           </button>
           <button className={`${styles.modeButton} ${styles.modeButtonTimeAttack}`} onClick={() => handleSelectMode('timeattack')}>
             タイム<br />アタック
+          </button>
+          <button className={styles.recordsButton} onClick={() => setShowRecords(true)}>
+            きろくをみる
           </button>
         </div>
       ) : isGameOver ? (

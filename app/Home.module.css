@@ -43,6 +43,10 @@
   margin-bottom: 30px;
 }
 
+.headerWithBack {
+  margin-top: 56px;
+}
+
 .gameArea {
   /* 画面上半分を占めるようなレイアウト */
   flex-grow: 1; 
@@ -228,3 +232,70 @@
   background-color: #5a46d6;
 }
 
+.recordsButton {
+  padding: 14px 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #ffffff;
+  color: #333;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.recordsArea {
+  width: 100%;
+  max-width: 600px;
+  flex-grow: 1;
+  padding: 16px;
+}
+
+.recordsTitle {
+  margin: 0 0 24px;
+  color: #333;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.emptyRecords {
+  color: #666;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.recordsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recordItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #333;
+}
+
+.recordItem strong {
+  color: #725bf4;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .header {
+    font-size: 2rem;
+  }
+
+  .recordItem {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
